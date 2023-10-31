@@ -70,7 +70,7 @@ const CTable = ({ data, handleDelete, handleApprove, status }) => {
                     <td className='text-left w-[190px]'>{ele.houseadd}</td>
                     <td className='text-left w-[120px]'>{ele.zip}</td>
                     <td className='text-left w-[120px]'>{ele.state}</td>
-                    <td className='text-left w-full flex gap-[5px]'>
+                    <td className='text-left w-full flex gap-[5px] pt-[72px] pb-[64px]'>
                       {!ele.approved ? (
                         <>
                           <button className='bg-green-700 p-2 border-gray-300 rounded-md text-white'>

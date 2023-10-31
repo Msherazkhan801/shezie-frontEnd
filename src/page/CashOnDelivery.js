@@ -5,6 +5,9 @@ import {Link,useNavigate} from 'react-router-dom'
 import { toast } from 'react-hot-toast'
 import {loadStripe} from '@stripe/stripe-js';
 import { addCartItem, resetCart } from '../redux/productSlide';
+import Login from "./login";
+import ProductCard from '../component/card/Card';
+
 
 const PBKEY= process.env.REACT_APP_STRIPE_PUBLIC_KEY || "pk_test_51NSkkDEYDLJJFOUDzN7KONiKjzsWoNfnpeKN0oKy3iMEWFHDoewYvfQplYQW2tupJfXzONYdLWVuDVlwfs8EsFm400RGLbp5zV"
 const envFile=process.env.REACT_APP_SERVER_DOMIN || 'http://localhost:8000'
@@ -13,7 +16,7 @@ const CashOnDelivery = () => {
 
   const navigate=useNavigate()
   const dispatch=useDispatch()
-const [selectedOption, setSelectedOption] = useState('');
+const [selectedOption, setSelectedOption] = useState('option2');
   const handleOptionChange = (event) => {
     setSelectedOption(event.target.value);
     console.log(selectedOption,"selectedOption");
@@ -33,21 +36,21 @@ const [selectedOption, setSelectedOption] = useState('');
     
     
   })
+
+    useEffect(()=>{
+     JSON.parse(localStorage.getItem("Product"));   
+  },[])
+
+  const productData = JSON.parse(localStorage.getItem("Product"));   
   const productCartItem = useSelector((state) => state?.product?.cartItem);
   const user = useSelector(state => state.user)
-
-  const SubTotal=productCartItem?.map((ele)=>ele?.price)
+  const SubTotal=productData?.map((ele)=>ele?.price);
   const sum = SubTotal?.map(Number)?.reduce((accumulator, currentValue) => accumulator + currentValue);
-  
-  
 
-  useEffect(()=>{
-    if(productCartItem){
-     
-    }else{
-      navigate('/')
-    }
-  },[productCartItem])
+
+
+
+
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -114,6 +117,7 @@ const [selectedOption, setSelectedOption] = useState('');
     if(user.email){
         
         const stripePromise = await loadStripe(PBKEY)
+        console.log(stripePromise,"<<Stripe");
         const res = await fetch(`${envFile}/create-checkout-session`,{
           method : "POST",
           headers  : {
@@ -137,6 +141,8 @@ const [selectedOption, setSelectedOption] = useState('');
     }
   
 }
+
+
   return (
     <div>
   <div className="container">
@@ -481,7 +487,6 @@ const [selectedOption, setSelectedOption] = useState('');
   </div>
  </div>
 </div>
-      
     </div>
   )
 }

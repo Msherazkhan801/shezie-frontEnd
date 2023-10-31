@@ -3,7 +3,12 @@ import {BsFillEnvelopeFill } from "react-icons/bs";
 import { FaUser } from "react-icons/fa";
 import { TiTickOutline } from "react-icons/ti";
 import './style/about.css'
+import { useNavigate } from 'react-router-dom';
 const About = () => {
+  const navigate=useNavigate()
+  const LearnMore=()=>{
+    navigate('/contact')
+  }
   return (
     <div className='about-page'>
     <div className='about-section'>
@@ -18,7 +23,7 @@ const About = () => {
          1960s with the release of Letraset sheets containing Lorem Ipsum passages,
           and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
           <div className='btn-wrapper'>
-          <button className='btn-about-more'>Learn More</button>
+          <button className='btn-about-more' onClick={LearnMore}>Learn More</button>
           </div>
     </div>
     <div className='about-card-wrapper'>

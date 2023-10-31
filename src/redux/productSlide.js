@@ -15,9 +15,11 @@ export const productSlice = createSlice({
   reducers: {
     setDataProduct: (state, action) => {
       state.productList = [...action.payload];
+
     },
     addCartItem: (state, action) => {
       const check = state.cartItem.some((el) => el._id === action.payload._id);
+      
       if (check) {
         toast('Already Item in Cart');
       } else {
@@ -27,6 +29,8 @@ export const productSlice = createSlice({
           ...state.cartItem,
           { ...action.payload, qty: 1, total: total },
         ];
+      localStorage.setItem("Product", JSON.stringify(state.cartItem));
+
       }
     },
     resetCart: (state, action) => {
