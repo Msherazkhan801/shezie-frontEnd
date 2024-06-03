@@ -43,7 +43,7 @@ const Home = () => {
   },[productData,dispatch])
 
   const handleOrder=()=>{
-    navigate(`menu/${productData[0]?._id}`)
+    navigate(`menu/${productData[0]?._id ?productData[0]?._id :3}`)
   }
 
   return (
